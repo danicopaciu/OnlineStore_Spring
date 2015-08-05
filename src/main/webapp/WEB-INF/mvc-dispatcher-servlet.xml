@@ -13,7 +13,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean class="com.springapp.mvc.dao.ProductDao" name="productDao" />
+    <bean class="com.springapp.mvc.dao.ProductDaoImpl" name="productDao" />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:annotation-driven />

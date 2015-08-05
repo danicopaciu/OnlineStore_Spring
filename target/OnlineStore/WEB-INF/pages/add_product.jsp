@@ -28,7 +28,7 @@
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <p> <a href="javascript:formSubmit()">Logout</a> </p>
     </c:if>
-    
+
     <c:if test="${not empty msg}">
         <p>${msg}</p>
     </c:if>
@@ -53,7 +53,7 @@
       </table>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
-    <table>
+    <table border="2">
         <thead>
             <td>ID</td>
             <td>Name</td>
@@ -66,6 +66,8 @@
                 <td>${item.name}</td>
                 <td>${item.price}</td>
                 <td>${item.quantity}</td>
+                <td><a href="" >Update</a></td>
+                <td><a href="">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
