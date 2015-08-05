@@ -19,6 +19,11 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ADMIN_PATH = "/admin";
+    public static final String USER_PATH = "/user";
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
@@ -44,18 +49,18 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for(GrantedAuthority grantedAuthority : authorities){
-            if(grantedAuthority.getAuthority().equals("ROLE_USER")){
+            if(grantedAuthority.getAuthority().equals(ROLE_USER)){
                 isUser = true;
                 break;
-            }else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
+            }else if (grantedAuthority.getAuthority().equals(ROLE_ADMIN)){
                 isAdmin = true;
                 break;
             }
         }
         if(isAdmin){
-            return "/admin.jsp";
+            return ADMIN_PATH;
         }else if (isUser){
-            return "/user.jsp";
+            return USER_PATH;
         }else {
             throw new IllegalStateException();
         }

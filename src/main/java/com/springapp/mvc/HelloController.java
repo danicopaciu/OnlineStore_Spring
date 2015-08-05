@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HelloController {
 
 
-	@RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 		model.addAttribute("message", "Hello world!");
 		return "hello";
@@ -21,13 +21,18 @@ public class HelloController {
 						 ModelMap model){
 
 		if(error != null){
-			model.addAttribute("error", "Invalid username and password");
+			model.addAttribute("error", "Invalid username or password");
 		}
 		return "hello";
 	}
 
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public String printAdmin(ModelMap model){
+	public String printAdmin (ModelMap model){
 		return "admin";
+	}
+
+	@RequestMapping(value = "/user**", method = RequestMethod.GET)
+	public String printUser (ModelMap model){
+		return "user";
 	}
 }
