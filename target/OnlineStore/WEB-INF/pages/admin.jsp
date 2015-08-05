@@ -29,5 +29,14 @@
         <p> Welcome: ${pageContext.request.userPrincipal.name} </p>
         <p> <a href="javascript:formSubmit()">Logout</a> </p>
     </c:if>
+
+    <table>
+        <tr>
+            <td><a href="<c:url value='/AddProduct' />">Add Product</a> </td>
+            <td><a href="">Delete Product</a> </td>
+            <td><a href="">Update Product</a> </td>
+            <td><a href="">View Product</a> </td>
+        </tr>
+    </table>
 </body>
 </html>

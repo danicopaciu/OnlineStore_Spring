@@ -8,7 +8,8 @@
 
     <http use-expressions="true">
         <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/admin**" access="isAuthenticated()"/>
+        <intercept-url pattern="/login**" access="permitAll"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
         <form-login
                 login-page="/"
                 authentication-success-handler-ref="myAuthenticationSuccessHandler"
@@ -19,13 +20,17 @@
         <csrf/>
     </http>
 
-    <beans:bean id="myAuthenticationSuccessHandler" class="com.springapp.mvc.MyAuthenticationSuccessHandler"/>
+    <beans:bean id="myAuthenticationSuccessHandler" class="com.springapp.mvc.authentication.MyAuthenticationSuccessHandler">
+        <beans:property name="redirectStrategy" ref="redirectStrategy" />
+    </beans:bean>
+
+    <beans:bean id="redirectStrategy" class="org.springframework.security.web.DefaultRedirectStrategy"/>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
                 <user name="daniel" password="123" authorities="ROLE_USER"/>
-                <user name="abc" password="123" authorities="ROLE_ADMIN"/>
+                <user name="admin" password="123" authorities="ROLE_ADMIN"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>
