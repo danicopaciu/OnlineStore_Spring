@@ -23,5 +23,9 @@
 <c:if test="${not empty error}">
     <p>${error}</p>
 </c:if>
+
+<c:if test="${not empty msg}">
+    <p>${msg}</p>
+</c:if>
 </body>
 </html>

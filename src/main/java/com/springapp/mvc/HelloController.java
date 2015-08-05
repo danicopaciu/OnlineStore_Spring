@@ -18,11 +18,17 @@ public class HelloController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login (@RequestParam(value = "error", required = false) String error,
+						 @RequestParam(value = "logout", required = false) String logout,
 						 ModelMap model){
 
 		if(error != null){
 			model.addAttribute("error", "Invalid username or password");
 		}
+
+		if(logout != null){
+			model.addAttribute("msg", "You have been successfully logged out!");
+		}
+
 		return "hello";
 	}
 
