@@ -10,6 +10,10 @@ import java.util.List;
 public interface ProductDao {
 
     public void create ();
-    public boolean addProduct(Product p);
     public List<Product> getProductList();
+    public boolean addProduct(Product p);
+    public boolean updateProduct(Product p);
+    public boolean deleteProduct(int productId);
+    public Product viewProduct(int productId);
+    public List<Product> viewAllProducts();
 }

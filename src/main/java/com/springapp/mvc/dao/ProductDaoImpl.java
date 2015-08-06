@@ -19,6 +19,7 @@ public class ProductDaoImpl implements ProductDao{
         }
     }
 
+    @Override
     public boolean addProduct(Product p){
         if(productList != null){
             int id = productList.size();
@@ -26,6 +27,26 @@ public class ProductDaoImpl implements ProductDao{
             return productList.add(p);
         }
         return false;
+    }
+
+    @Override
+    public boolean updateProduct(Product p) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteProduct(int productId) {
+        return false;
+    }
+
+    @Override
+    public Product viewProduct(int productId) {
+        return null;
+    }
+
+    @Override
+    public List<Product> viewAllProducts() {
+        return null;
     }
 
     public List<Product> getProductList() {
