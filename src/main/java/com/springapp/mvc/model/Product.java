@@ -1,18 +1,39 @@
 package com.springapp.mvc.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
-
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column
     private String name;
+
+    @Column
     private double price;
+
+    @Column
     private int quantity;
+
+    public Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public Product(int id, String name, double price, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public Product() {
     }
 
     public int getId() {

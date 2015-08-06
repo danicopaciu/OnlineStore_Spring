@@ -32,7 +32,7 @@
     <c:if test="${not empty msg}">
         <p>${msg}</p>
     </c:if>
-    <form action="" name="add_product" method="post">
+    <form action="/admin/AddProduct" name="add_product" method="post">
       <table>
         <tr>
           <td>Name: </td>
@@ -53,21 +53,21 @@
       </table>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     </form>
-    <table border="2">
-        <thead>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Quantity</td>
-        </thead>
+    <table border="1">
+        <tr>
+            <th colspan="2">ID</th>
+            <th colspan="2">Name</th>
+            <th colspan="2">Price</th>
+            <th colspan="2">Quantity</th>
+        </tr>
         <c:forEach var="item" items="${productList}">
             <tr>
-                <td>${item.id}</td>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>${item.quantity}</td>
-                <td><a href="" >Update</a></td>
-                <td><a href="">Delete</a></td>
+                <td colspan="2">${item.id}</td>
+                <td colspan="2">${item.name}</td>
+                <td colspan="2">${item.price}</td>
+                <td colspan="2">${item.quantity}</td>
+                <td colspan="2"><a href="/admin/UpdateProduct?productId=${item.id}" >Update</a></td>
+                <td colspan="2"><a href="/admin/DeleteProduct?productId=${item.id}&page_name=${pageContext.request.servletPath}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>

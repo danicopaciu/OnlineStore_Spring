@@ -32,11 +32,27 @@
 
     <table>
         <tr>
-            <td><a href="<c:url value='/AddProduct' />">Add Product</a> </td>
-            <td><a href="">Delete Product</a> </td>
-            <td><a href="">Update Product</a> </td>
-            <td><a href="">View Product</a> </td>
+            <td><a href="<c:url value='/admin/AddProduct' />">Add Product</a> </td>
         </tr>
+    </table>
+
+    <table border="1">
+        <tr>
+            <th colspan="2">ID</th>
+            <th colspan="2">Name</th>
+            <th colspan="2">Price</th>
+            <th colspan="2">Quantity</th>
+        </tr>
+        <c:forEach var="item" items="${productList}">
+            <tr>
+                <td colspan="2">${item.id}</td>
+                <td colspan="2">${item.name}</td>
+                <td colspan="2">${item.price}</td>
+                <td colspan="2">${item.quantity}</td>
+                <td colspan="2"><a href="/admin/UpdateProduct?productId=${item.id}" >Update</a></td>
+                <td colspan="2"><a href="/admin/DeleteProduct?productId=${item.id}">Delete</a></td>
+            </tr>
+        </c:forEach>
     </table>
 </body>
 </html>

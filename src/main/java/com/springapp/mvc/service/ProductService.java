@@ -4,14 +4,15 @@ import com.springapp.mvc.model.Product;
 
 import java.util.List;
 
-/**
- * Created by Daniel.Copaciu on 8/5/2015.
- */
 public interface ProductService {
 
-    public boolean addProduct(Product p);
-    public boolean updateProduct(Product p);
-    public boolean deleteProduct(int productId);
+    public void addProduct(String name, double price, int quantity);
+
+    public void updateProduct(int id, String name, double price, int quantity);
+
+    public void deleteProduct(int productId);
+
     public Product viewProduct(int productId);
+
     public List<Product> viewAllProducts();
 }

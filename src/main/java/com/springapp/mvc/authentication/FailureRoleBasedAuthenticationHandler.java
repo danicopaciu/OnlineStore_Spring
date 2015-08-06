@@ -10,12 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Daniel.Copaciu on 8/5/2015.
- */
 public class FailureRoleBasedAuthenticationHandler implements AuthenticationFailureHandler {
 
-    @Autowired
     private RedirectStrategy redirectStrategy;
 
     @Override

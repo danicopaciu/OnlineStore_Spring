@@ -9,11 +9,13 @@ import java.util.List;
  */
 public interface ProductDao {
 
-    public void create ();
-    public List<Product> getProductList();
-    public boolean addProduct(Product p);
-    public boolean updateProduct(Product p);
-    public boolean deleteProduct(int productId);
+    public void addProduct(Product p);
+
+    public void updateProduct(Product p);
+
+    public void deleteProduct(int productId);
+
     public Product viewProduct(int productId);
+
     public List<Product> viewAllProducts();
 }

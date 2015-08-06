@@ -8,10 +8,10 @@
 
     <http use-expressions="true">
         <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/login**" access="permitAll" requires-channel="https"/>
-        <intercept-url pattern="/admin" access="isAuthenticated()" requires-channel="http"/>
-        <intercept-url pattern="/user" access="isAuthenticated()" requires-channel="http"/>
-        <intercept-url pattern="/**" access="isAuthenticated()" requires-channel="https"/>
+        <intercept-url pattern="/login**" access="permitAll" requires-channel="http"/>
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" requires-channel="http"/>
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')" requires-channel="http"/>
+        <intercept-url pattern="/**" access="isAuthenticated()" requires-channel="http"/>
         <form-login
                 login-page="/"
                 authentication-success-handler-ref="myAuthenticationSuccessHandler"
@@ -26,7 +26,9 @@
         <beans:property name="redirectStrategy" ref="redirectStrategy" />
     </beans:bean>
 
-    <beans:bean id="myAuthenticationFailureHandler" class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler" />
+    <beans:bean id="myAuthenticationFailureHandler" class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler" >
+        <beans:property name="redirectStrategy" ref="redirectStrategy" />
+    </beans:bean>
 
     <beans:bean id="redirectStrategy" class="org.springframework.security.web.DefaultRedirectStrategy"/>
 

@@ -1,55 +1,54 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.model.Product;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Daniel.Copaciu on 8/5/2015.
- */
-public class ProductDaoImpl implements ProductDao{
+@Repository
+public class ProductDaoImpl implements ProductDao {
 
-    private List<Product> productList;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    public void create (){
-        productList = new ArrayList<Product>();
-        for(int i = 0; i < 3; i++){
-            productList.add(new Product(i, "Product" + i, 4.0, 2));
+    @Override
+    public void addProduct(Product p) {
+        Session session = sessionFactory.getCurrentSession();
+        if (p != null) {
+            session.persist(p);
         }
     }
 
     @Override
-    public boolean addProduct(Product p){
-        if(productList != null){
-            int id = productList.size();
-            p.setId(id);
-            return productList.add(p);
+    public void updateProduct(Product p) {
+        Session session = sessionFactory.getCurrentSession();
+        if (p != null) {
+            session.update(p);
         }
-        return false;
     }
 
     @Override
-    public boolean updateProduct(Product p) {
-        return false;
-    }
-
-    @Override
-    public boolean deleteProduct(int productId) {
-        return false;
+    public void deleteProduct(int productId) {
+        Session session = sessionFactory.getCurrentSession();
+        Product p = (Product) session.load(Product.class, productId);
+        if (p != null) {
+            session.delete(p);
+        }
     }
 
     @Override
     public Product viewProduct(int productId) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return (Product) session.load(Product.class, productId);
     }
 
     @Override
     public List<Product> viewAllProducts() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Product").list();
     }
 
-    public List<Product> getProductList() {
-        return productList;
-    }
 }

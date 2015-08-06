@@ -15,12 +15,12 @@ import java.util.Collection;
 
 public class SuccessRoleBasedAuthenticationHandler implements AuthenticationSuccessHandler {
 
-    private RedirectStrategy redirectStrategy;
-
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ADMIN_PATH = "/admin";
     public static final String USER_PATH = "/user";
+
+    private RedirectStrategy redirectStrategy;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
@@ -36,7 +36,7 @@ public class SuccessRoleBasedAuthenticationHandler implements AuthenticationSucc
                         HttpServletResponse response,
                         Authentication authentication) throws IOException {
         String url = determineTargetUrl(authentication);
-        if(response.isCommitted()){
+        if (response.isCommitted()) {
             return;
         }
         redirectStrategy.sendRedirect(request, response, url);
@@ -46,27 +46,27 @@ public class SuccessRoleBasedAuthenticationHandler implements AuthenticationSucc
         boolean isUser = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        for(GrantedAuthority grantedAuthority : authorities){
-            if(grantedAuthority.getAuthority().equals(ROLE_USER)){
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals(ROLE_USER)) {
                 isUser = true;
                 break;
-            }else if (grantedAuthority.getAuthority().equals(ROLE_ADMIN)){
+            } else if (grantedAuthority.getAuthority().equals(ROLE_ADMIN)) {
                 isAdmin = true;
                 break;
             }
         }
-        if(isAdmin){
+        if (isAdmin) {
             return ADMIN_PATH;
-        }else if (isUser){
+        } else if (isUser) {
             return USER_PATH;
-        }else {
+        } else {
             throw new IllegalStateException();
         }
     }
 
-    protected void clearAuthenticationAttributes(HttpServletRequest request){
+    protected void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if(session == null){
+        if (session == null) {
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
