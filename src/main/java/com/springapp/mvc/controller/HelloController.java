@@ -1,10 +1,15 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.model.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class HelloController {
@@ -18,6 +23,7 @@ public class HelloController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
+                        HttpSession session,
                         ModelMap model) {
 
         if (error != null) {
@@ -25,6 +31,10 @@ public class HelloController {
         }
 
         if (logout != null) {
+            List<Product> cart = (List<Product>) session.getAttribute("cart");
+            if(cart != null){
+                return "redirect:/user/DeleteCart";
+            }
             model.addAttribute("msg", "You have been successfully logged out!");
         }
 
@@ -38,6 +48,6 @@ public class HelloController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String printUser() {
-        return "user";
+        return "redirect:/user/ProductList";
     }
 }

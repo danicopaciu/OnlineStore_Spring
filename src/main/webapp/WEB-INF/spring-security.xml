@@ -18,15 +18,20 @@
                 authentication-failure-handler-ref="myAuthenticationFailureHandler"
                 username-parameter="username"
                 password-parameter="password"/>
+        <!--<custom-filter ref="logoutFilter" before="LOGOUT_FILTER"/>-->
         <logout logout-success-url="/login?logout=true"/>
         <csrf/>
     </http>
 
-    <beans:bean id="myAuthenticationSuccessHandler" class="com.springapp.mvc.authentication.SuccessRoleBasedAuthenticationHandler">
+    <beans:bean name="logoutFilter" class="com.springapp.mvc.authentication.BeforeLogoutFilter"/>
+
+    <beans:bean id="myAuthenticationSuccessHandler"
+                class="com.springapp.mvc.authentication.SuccessRoleBasedAuthenticationHandler">
         <beans:property name="redirectStrategy" ref="redirectStrategy" />
     </beans:bean>
 
-    <beans:bean id="myAuthenticationFailureHandler" class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler" >
+    <beans:bean id="myAuthenticationFailureHandler"
+                class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler" >
         <beans:property name="redirectStrategy" ref="redirectStrategy" />
     </beans:bean>
 

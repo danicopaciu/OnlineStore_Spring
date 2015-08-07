@@ -36,19 +36,19 @@
         <table>
             <tr>
                 <td>ID:</td>
-                <td><input type="text" name="product_id" value="${productId}" readonly="readonly"></td>
+                <td><input type="text" name="product_id" value="${product.id}" readonly="readonly"></td>
             </tr>
             <tr>
                 <td>Name:</td>
-                <td><input type="text" name="product_name" ></td>
+                <td><input type="text" name="product_name" value="${product.name}"></td>
             </tr>
             <tr>
                 <td>Price:</td>
-                <td><input type="number" step="0.01" name="product_price" /></td>
+                <td><input type="number" step="0.01" name="product_price" value="${product.price}" /></td>
             </tr>
             <tr>
                 <td>Quantity:</td>
-                <td><input type="number" name="product_quantity" /></td>
+                <td><input type="number" name="product_quantity" value="${product.quantity}"/></td>
             </tr>
             <tr>
                 <td></td>

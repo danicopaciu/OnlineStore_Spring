@@ -24,11 +24,46 @@
             document.getElementById("logoutForm").submit();
         }
     </script>
-
+    <br><br>
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <p> Welcome: ${pageContext.request.userPrincipal.name} </p>
 
         <p><a href="javascript:formSubmit()">Logout</a></p>
     </c:if>
+
+    <c:choose>
+        <c:when test="${cart != null}">
+            <a href="/user/ShoppingCart">Shopping Cart(${cart.size()})</a>
+        </c:when>
+        <c:otherwise>
+            <a href="">Shopping Cart(0)</a>
+        </c:otherwise>
+    </c:choose>
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <c:forEach var="item" items="${productList}">
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+                <c:choose>
+                    <c:when test="${item.quantity <= 0}">
+                        <td>Unavailable</td>
+                        <td><a href="" onclick="false">Buy!</a></td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>Available</td>
+                        <td><a href="/user/buyProduct?productId=${item.id}" >Buy!</a></td>
+                    </c:otherwise>
+                </c:choose>
+
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

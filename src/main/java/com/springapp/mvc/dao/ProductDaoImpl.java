@@ -25,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void updateProduct(Product p) {
         Session session = sessionFactory.getCurrentSession();
-        if (p != null) {
+        if (p != null && session != null) {
             session.update(p);
         }
     }
@@ -42,7 +42,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product viewProduct(int productId) {
         Session session = sessionFactory.getCurrentSession();
-        return (Product) session.load(Product.class, productId);
+        return (Product) session.get(Product.class, productId);
     }
 
     @Override

@@ -15,4 +15,12 @@ public interface ProductService {
     public Product viewProduct(int productId);
 
     public List<Product> viewAllProducts();
+
+    public Product getRequestedProduct(int productId, int quantity);
+
+    public boolean existsProduct(List<Product> productList, Product p);
+
+    public void removeProductFromCart(List<Product> productList, int productId);
+
+    public void clearCart(List<Product> productList);
 }

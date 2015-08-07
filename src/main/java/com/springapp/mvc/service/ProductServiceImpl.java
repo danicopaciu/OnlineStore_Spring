@@ -48,4 +48,59 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> viewAllProducts() {
         return productDao.viewAllProducts();
     }
+
+    @Override
+    @Transactional
+    public Product getRequestedProduct(int productId, int quantity) {
+        Product p = productDao.viewProduct(productId);
+        int prevQuantity = p.getQuantity();
+        if(prevQuantity - quantity >= 0){
+            p.setQuantity(prevQuantity - quantity);
+            return new Product(p.getId(), p.getName(), p.getPrice(), quantity);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean existsProduct(List<Product> productList, Product p){
+        for (Product aProduct: productList){
+            if(aProduct.getId() == p.getId()){
+                aProduct.setQuantity(aProduct.getQuantity() + p.getQuantity());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void updateProductQuantity(Product aProduct) {
+        Product persistentProduct = productDao.viewProduct(aProduct.getId());
+        persistentProduct.setQuantity(persistentProduct.getQuantity() + aProduct.getQuantity());
+    }
+
+    @Override
+    @Transactional
+    public void removeProductFromCart(List<Product> productList, int productId) {
+        if (productList != null){
+            for (Product aProduct : productList){
+                if (aProduct.getId() == productId){
+                    updateProductQuantity(aProduct);
+                    productList.remove(aProduct);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    @Transactional
+    public void clearCart(List<Product> productList) {
+        if(productList != null){
+            for(Product aProduct : productList){
+                updateProductQuantity(aProduct);
+            }
+            productList.clear();
+        }
+    }
+
+
 }
