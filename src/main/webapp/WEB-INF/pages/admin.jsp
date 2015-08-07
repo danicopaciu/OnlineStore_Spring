@@ -50,7 +50,7 @@
                 <td colspan="2">${item.price}</td>
                 <td colspan="2">${item.quantity}</td>
                 <td colspan="2"><a href="/admin/UpdateProduct?productId=${item.id}" >Update</a></td>
-                <td colspan="2"><a href="/admin/DeleteProduct?productId=${item.id}">Delete</a></td>
+                <td colspan="2"><a href="/admin/DeleteProduct?productId=${item.id}&page_name=${pageContext.request.servletPath}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
