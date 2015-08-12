@@ -10,14 +10,11 @@ public class OrderItem {
     @Column(name = "order_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @ManyToOne
     @PrimaryKeyJoinColumn
     private Product product;
-
     @Column
     private int quantity;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;

@@ -16,6 +16,8 @@ public interface OrderDao {
 
     public List<Order> viewOrders();
 
+    public List<Order> viewOrdersForUser(String username);
+
     public Order viewOrder(int orderId);
 
 

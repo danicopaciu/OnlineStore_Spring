@@ -12,16 +12,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private int id;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<OrderItem> itemList;
-
     @Column(name = "order_date", columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-
     @Column(name = "cost")
     private double cost;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     public Order() {
     }
@@ -67,5 +67,13 @@ public class Order {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -12,33 +12,35 @@
     <title></title>
 </head>
 <body>
-    <h1>Fill in the quantity!</h1>
-    <form name="buyForm" action="/user/buyProduct" method="post">
-        <table>
-            <tr>
-                <td>Name:</td>
-                <td>${product.name}</td>
-            </tr>
-            <tr>
-                <td>Price:</td>
-                <td>${product.price}</td>
-            </tr>
+<h1>Fill in the quantity!</h1>
 
-            <tr>
-                <td>Quantity:</td>
-                <td><input type="number" min="1" name="product_quantity"/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" name="submit_quantity" value="Add to chart"></td>
-            </tr>
-            <input type="hidden" name="productId" value="${product.id}">
-        </table>
+<form name="buyForm" action="/user/buyProduct" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>${product.name}</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>${product.price}</td>
+        </tr>
 
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    </form><br>
-    <c:if test="${not empty msg}">
-        <p>${msg}</p>
-    </c:if>
+        <tr>
+            <td>Quantity:</td>
+            <td><input type="number" min="1" name="product_quantity"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="submit_quantity" value="Add to chart"></td>
+        </tr>
+        <input type="hidden" name="productId" value="${product.id}">
+    </table>
+
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
+<br>
+<c:if test="${not empty msg}">
+    <p>${msg}</p>
+</c:if>
 </body>
 </html>

@@ -10,15 +10,14 @@ public class User {
     @Id
     @Column(name = "username")
     private String username;
-
     @Column(name = "password")
     private String password;
-
     @Column(name = "enabled")
     private boolean enabled;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserRole> userRoles;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Order> orderSet;
 
     public User() {
     }
@@ -59,5 +58,13 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public Set<Order> getOrderSet() {
+        return orderSet;
+    }
+
+    public void setOrderSet(Set<Order> orderSet) {
+        this.orderSet = orderSet;
     }
 }

@@ -1,26 +1,28 @@
 package service;
 
-import persistence.dao.OrderDao;
-import persistence.model.Order;
-import persistence.model.OrderItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import persistence.dao.OrderDao;
+import persistence.dao.UserDao;
+import persistence.model.Order;
+import persistence.model.OrderItem;
 import persistence.model.Product;
+import persistence.model.UserRole;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
     private OrderDao orderDao;
-
-    public void setOrderDao(OrderDao orderDao) {
-        this.orderDao = orderDao;
-    }
 
     @Override
     @Transactional
@@ -28,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
         if (cart != null) {
             Order order = new Order();
             setOrderItemsList(cart, order);
+            setUser(order);
             order.setDate(new Date());
             orderDao.addOrder(order);
             cart.clear();
@@ -46,6 +49,32 @@ public class OrderServiceImpl implements OrderService {
         order.setItemList(orderItemSet);
     }
 
+    private void setUser(Order order) {
+        User user = getAuthenticatedUser();
+        if (user != null) {
+            String username = user.getUsername();
+            String password = user.getPassword();
+            persistence.model.User u = new persistence.model.User(username, password, true);
+            setUserRole(user, u);
+            order.setUser(u);
+        }
+    }
+
+    private User getAuthenticatedUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        return (User) authentication.getPrincipal();
+    }
+
+    private void setUserRole(User user, persistence.model.User u) {
+        Collection<GrantedAuthority> authorities = user.getAuthorities();
+        Set<UserRole> userRoles = new HashSet<UserRole>();
+        for (GrantedAuthority authority : authorities) {
+            userRoles.add(new UserRole(u, authority.getAuthority()));
+        }
+        u.setUserRoles(userRoles);
+    }
+
     @Override
     @Transactional
     public void deleteOrder(int orderId) {
@@ -57,19 +86,21 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrderItem(int orderId, int orderItemId) {
         Order o = orderDao.viewOrder(orderId);
         Set<OrderItem> itemSet = o.getItemList();
-        for(OrderItem item : itemSet){
-            if(item.getId() == orderItemId){
+        for (OrderItem item : itemSet) {
+            if (item.getId() == orderItemId) {
                 itemSet.remove(item);
                 break;
             }
         }
-        o.setItemList(itemSet);
+        if (itemSet.size() == 0) {
+            orderDao.deleteOrder(orderId);
+        }
     }
 
     @Override
     @Transactional
     public void updateOrder(Order order) {
-        if(order != null) {
+        if (order != null) {
             orderDao.updateOrder(order);
         }
     }
@@ -78,5 +109,16 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public List<Order> viewOrders() {
         return orderDao.viewOrders();
+    }
+
+    @Override
+    @Transactional
+    public List<Order> viewOrdersForUser() {
+        User user = getAuthenticatedUser();
+        if (user != null) {
+            String username = user.getUsername();
+           return orderDao.viewOrdersForUser(username);
+        }
+        return null;
     }
 }

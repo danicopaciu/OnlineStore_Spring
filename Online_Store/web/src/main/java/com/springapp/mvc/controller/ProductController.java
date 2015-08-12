@@ -1,12 +1,12 @@
 package com.springapp.mvc.controller;
 
-import persistence.model.Product;
-import service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import persistence.model.Product;
+import service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +96,7 @@ public class ProductController {
                              @ModelAttribute("cart") List<Product> cart,
                              ModelMap model) {
         Product p;
-        if(quantity != null) {
+        if (quantity != null) {
             p = productService.getRequestedProduct(productId, quantity);
             if (p != null) {
                 if (!productService.existsProduct(cart, p)) {
@@ -106,7 +106,7 @@ public class ProductController {
                 putProductInModel(productId, model, "The requested quantity isn't available!");
                 return "buyProduct";
             }
-        }else{
+        } else {
             putProductInModel(productId, model, "Quantity field must be not empty!");
             return "buyProduct";
         }
@@ -136,7 +136,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public String deleteCart(@ModelAttribute(value = "cart") List<Product> cart) {
-        if(cart != null) {
+        if (cart != null) {
             productService.clearCart(cart);
         }
         return "";

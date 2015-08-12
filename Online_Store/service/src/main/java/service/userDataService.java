@@ -1,5 +1,6 @@
 package service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +19,8 @@ import java.util.Set;
 @Service
 public class UserDataService implements UserDetailsService {
 
+    @Autowired
     private UserDao userDao;
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     @Override
     @Transactional
@@ -38,9 +36,9 @@ public class UserDataService implements UserDetailsService {
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
-       List<GrantedAuthority> authsList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authsList = new ArrayList<GrantedAuthority>();
 
-        for(UserRole userRole : userRoles){
+        for (UserRole userRole : userRoles) {
             authsList.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
         return authsList;

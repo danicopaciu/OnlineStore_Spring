@@ -1,5 +1,6 @@
 package service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import persistence.dao.UserDao;
@@ -11,22 +12,16 @@ import java.util.Set;
 
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserDao userDao;
+    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     @Transactional
     public User registerNewAccount(String username, String password) {
         User user = null;
-        if(!usernameExists(username)){
+        if (!usernameExists(username)) {
             user = getNewUser(username, password);
             userDao.addUser(user);
         }
@@ -49,7 +44,7 @@ public class UserServiceImpl implements UserService {
         return userRoles;
     }
 
-    private boolean usernameExists(String username){
+    private boolean usernameExists(String username) {
         User u = userDao.findByUserName(username);
         return u != null;
     }

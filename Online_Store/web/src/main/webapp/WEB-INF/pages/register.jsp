@@ -11,27 +11,28 @@
     <title></title>
 </head>
 <body>
-    <h1>Register</h1>
-    <form name="registerForm" action="/register" method="POST">
-      <table align="center">
+<h1>Register</h1>
+
+<form name="registerForm" action="/register" method="POST">
+    <table align="center">
         <tr>
-          <td>Username:</td>
-          <td><input type="text" name="username"></td>
+            <td>Username:</td>
+            <td><input type="text" name="username"></td>
         </tr>
         <tr>
-          <td>Password:</td>
-          <td><input type="password" name="password"></td>
+            <td>Password:</td>
+            <td><input type="password" name="password"></td>
         </tr>
         <tr>
-          <td>Confirm Password:</td>
-          <td><input type="password" name="matchingPassword"></td>
+            <td>Confirm Password:</td>
+            <td><input type="password" name="matchingPassword"></td>
         </tr>
         <tr>
-          <td></td>
-          <td align="right"><input type="submit" name="submit" value="Register"></td>
+            <td></td>
+            <td align="right"><input type="submit" name="submit" value="Register"></td>
         </tr>
-      </table>
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    </form>
+    </table>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
 </body>
 </html>

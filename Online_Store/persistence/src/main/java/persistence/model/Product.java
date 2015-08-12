@@ -10,13 +10,10 @@ public class Product {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column
     private String name;
-
     @Column
     private double price;
-
     @Column
     private int quantity;
 

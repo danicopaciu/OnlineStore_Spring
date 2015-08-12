@@ -1,6 +1,7 @@
 package persistence.dao;
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
+
+    public static final String USER_FK = "username";
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -44,6 +47,14 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> viewOrders() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Order").list();
+    }
+
+    @Override
+    public List<Order> viewOrdersForUser(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Order where username = :username ");
+        query.setParameter(USER_FK, username);
+        return query.list();
     }
 
     @Override

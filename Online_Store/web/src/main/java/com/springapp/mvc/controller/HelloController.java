@@ -58,23 +58,23 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String printRegister(){
+    public String printRegister() {
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@RequestParam (value = "username") String username,
-                           @RequestParam (value = "password") String password,
-                           @RequestParam (value = "matchingPassword") String matchingPassword,
-                           ModelMap model){
-        if(password.equals(matchingPassword)){
+    public String register(@RequestParam(value = "username") String username,
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value = "matchingPassword") String matchingPassword,
+                           ModelMap model) {
+        if (password.equals(matchingPassword)) {
             User u = userService.registerNewAccount(username, password);
-            if(u != null) {
+            if (u != null) {
                 model.addAttribute("msg", "You were successfully registered!");
-            }else{
-                model.addAttribute("msg", "Registration process went wrong!");
+            } else {
+                model.addAttribute("msg", "This username already exists!");
             }
-        }else{
+        } else {
             model.addAttribute("msg", "The password is not matching!");
         }
         return "hello";
