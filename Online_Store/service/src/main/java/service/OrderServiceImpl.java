@@ -1,19 +1,16 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import persistence.dao.OrderDao;
-import persistence.dao.UserDao;
 import persistence.model.Order;
 import persistence.model.OrderItem;
 import persistence.model.Product;
 import persistence.model.UserRole;
+import utils.UserUtils;
 
 import java.util.*;
 
@@ -50,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void setUser(Order order) {
-        User user = getAuthenticatedUser();
+        User user = UserUtils.getAuthenticatedUser();
         if (user != null) {
             String username = user.getUsername();
             String password = user.getPassword();
@@ -58,12 +55,6 @@ public class OrderServiceImpl implements OrderService {
             setUserRole(user, u);
             order.setUser(u);
         }
-    }
-
-    private User getAuthenticatedUser() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        return (User) authentication.getPrincipal();
     }
 
     private void setUserRole(User user, persistence.model.User u) {
@@ -114,10 +105,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public List<Order> viewOrdersForUser() {
-        User user = getAuthenticatedUser();
+        User user = UserUtils.getAuthenticatedUser();
         if (user != null) {
             String username = user.getUsername();
-           return orderDao.viewOrdersForUser(username);
+            return orderDao.viewOrdersForUser(username);
         }
         return null;
     }

@@ -44,6 +44,8 @@
             </c:choose>
         </td>
         <td><a href="/user/ViewOrders">View your Orders</a></td>
+        <td><a href="/user/RemoveAccount">Delete Account</a></td>
+        <td><a href="/user/ChangePassword">Change Password</a></td>
     </tr>
 </table>
 <br><br>

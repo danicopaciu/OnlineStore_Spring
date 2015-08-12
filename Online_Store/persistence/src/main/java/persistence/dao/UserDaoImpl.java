@@ -25,4 +25,13 @@ public class UserDaoImpl implements UserDao {
             session.save(u);
         }
     }
+
+    @Override
+    public void removeUser(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        User u = (User) session.get(User.class, username);
+        if (u != null) {
+            session.delete(u);
+        }
+    }
 }

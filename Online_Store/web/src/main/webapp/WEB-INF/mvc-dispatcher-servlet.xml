@@ -47,9 +47,9 @@
         </property>
     </bean>
 
-    <bean id="productService" class="service.ProductServiceImpl" />
+    <bean id="productService" class="service.ProductServiceImpl"/>
 
-    <bean id="orderService" class="service.OrderServiceImpl" />
+    <bean id="orderService" class="service.OrderServiceImpl"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

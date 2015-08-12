@@ -1,5 +1,6 @@
 package com.springapp.mvc.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 public class FailureRoleBasedAuthenticationHandler implements AuthenticationFailureHandler {
 
+    @Autowired
     private RedirectStrategy redirectStrategy;
 
     @Override
@@ -18,13 +20,5 @@ public class FailureRoleBasedAuthenticationHandler implements AuthenticationFail
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException e) throws IOException, ServletException {
         redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login?error=true");
-    }
-
-    public RedirectStrategy getRedirectStrategy() {
-        return redirectStrategy;
-    }
-
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
     }
 }

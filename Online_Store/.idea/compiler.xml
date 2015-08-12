@@ -41,7 +41,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="online-store" target="1.6" />
-      <module name="OnlineStore_Spring" target="1.5" />
+      <module name="OnlineStore_Spring" target="1.6" />
       <module name="persistence" target="1.6" />
       <module name="service" target="1.6" />
     </bytecodeTargetLevel>

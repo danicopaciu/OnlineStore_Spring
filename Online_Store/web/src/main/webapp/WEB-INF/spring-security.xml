@@ -26,26 +26,15 @@
     </http>
 
     <beans:bean id="myAuthenticationSuccessHandler"
-                class="com.springapp.mvc.authentication.SuccessRoleBasedAuthenticationHandler">
-        <beans:property name="redirectStrategy" ref="redirectStrategy"/>
-    </beans:bean>
+                class="com.springapp.mvc.authentication.SuccessRoleBasedAuthenticationHandler"/>
 
     <beans:bean id="myAuthenticationFailureHandler"
-                class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler">
-        <beans:property name="redirectStrategy" ref="redirectStrategy"/>
-    </beans:bean>
+                class="com.springapp.mvc.authentication.FailureRoleBasedAuthenticationHandler"/>
 
-    <beans:bean id="redirectStrategy" class="org.springframework.security.web.DefaultRedirectStrategy"/>
-    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
-    <!--<authentication-manager>-->
-    <!--<authentication-provider>-->
-    <!--<user-service>-->
-    <!--<user name="daniel" password="123" authorities="ROLE_USER"/>-->
-    <!--<user name="admin" password="123" authorities="ROLE_ADMIN"/>-->
-    <!--</user-service>-->
-    <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
+    <beans:bean id="redirectStrategy"
+                class="org.springframework.security.web.DefaultRedirectStrategy"/>
+    <beans:bean id="passwordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <beans:bean id="myUserDetailsService" class="service.UserDataService">
     </beans:bean>

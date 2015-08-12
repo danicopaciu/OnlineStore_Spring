@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import persistence.dao.UserDao;
 import persistence.model.User;
 import persistence.model.UserRole;
+import utils.UserUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +28,28 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    @Transactional
+    public void removeAccount() {
+        org.springframework.security.core.userdetails.User user = UserUtils.getAuthenticatedUser();
+        if (user != null) {
+            userDao.removeUser(user.getUsername());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(String newPassword) {
+        org.springframework.security.core.userdetails.User user = UserUtils.getAuthenticatedUser();
+        if (user != null) {
+            String username = user.getUsername();
+            User dbUser = userDao.findByUserName(username);
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            dbUser.setPassword(encodedPassword);
+        }
+    }
+
 
     private User getNewUser(String username, String password) {
         User user;

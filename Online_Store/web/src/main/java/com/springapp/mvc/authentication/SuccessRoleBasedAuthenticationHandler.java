@@ -1,5 +1,6 @@
 package com.springapp.mvc.authentication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.RedirectStrategy;
@@ -20,6 +21,7 @@ public class SuccessRoleBasedAuthenticationHandler implements AuthenticationSucc
     public static final String ADMIN_PATH = "/admin";
     public static final String USER_PATH = "/user";
 
+    @Autowired
     private RedirectStrategy redirectStrategy;
 
     @Override
@@ -70,13 +72,5 @@ public class SuccessRoleBasedAuthenticationHandler implements AuthenticationSucc
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }
-
-    public RedirectStrategy getRedirectStrategy() {
-        return redirectStrategy;
-    }
-
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
     }
 }
