@@ -32,6 +32,8 @@
                 <value>persistence.model.Product</value>
                 <value>persistence.model.Order</value>
                 <value>persistence.model.OrderItem</value>
+                <value>persistence.model.UserRole</value>
+                <value>persistence.model.User</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -55,5 +57,8 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </bean>
+
+
+
 
 </beans>
