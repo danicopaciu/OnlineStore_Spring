@@ -69,10 +69,16 @@
                                         <td>${orderItem.product.price}</td>
                                         <td>${orderItem.quantity}</td>
                                         <td>${orderItem.subTotal}</td>
+                                        <td>
+                                            <a href="/user/deleteOrderItem?orderId=${item.id}&orderItemId=${orderItem.id}">Remove</a>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </td>
+                    </tr>
+                    <tr>
+                        <td><a href="/user/deleteOrder?orderId=${item.id}">Remove Order</a></td>
                     </tr>
                 </table>
                 <br>

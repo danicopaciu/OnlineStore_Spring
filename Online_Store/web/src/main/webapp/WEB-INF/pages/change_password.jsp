@@ -14,21 +14,21 @@
 <h1>Register</h1>
 
 <form name="changePasswordForm" action="/user/ChangePassword" method="POST">
-  <table align="center">
-    <tr>
-      <td>New Password:</td>
-      <td><input type="password" name="newPassword"></td>
-    </tr>
-    <tr>
-      <td>Confirm New Password:</td>
-      <td><input type="password" name="newMatchingPassword"></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td align="right"><input type="submit" name="submit" value="Change Password"></td>
-    </tr>
-  </table>
-  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    <table align="center">
+        <tr>
+            <td>New Password:</td>
+            <td><input type="password" name="newPassword"></td>
+        </tr>
+        <tr>
+            <td>Confirm New Password:</td>
+            <td><input type="password" name="newMatchingPassword"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="right"><input type="submit" name="submit" value="Change Password"></td>
+        </tr>
+    </table>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
 </body>
 </html>

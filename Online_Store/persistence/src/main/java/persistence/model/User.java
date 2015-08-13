@@ -14,7 +14,7 @@ public class User {
     private String password;
     @Column(name = "enabled")
     private boolean enabled;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRole> userRoles;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private Set<Order> orderSet;

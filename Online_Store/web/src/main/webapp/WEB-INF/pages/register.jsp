@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>Register</h1>
+<a href="/">Log In</a>
 
 <form name="registerForm" action="/register" method="POST">
     <table align="center">

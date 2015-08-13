@@ -45,6 +45,19 @@ public class OrderController {
         return "redirect:/admin/ViewOrders";
     }
 
+    @RequestMapping(value = "/user/deleteOrder", method = RequestMethod.GET)
+    public String deleteUserOrder(@RequestParam(value = "orderId") int orderId) {
+        orderService.deleteOrder(orderId);
+        return "redirect:/user/ViewOrders";
+    }
+
+    @RequestMapping(value = "/user/deleteOrderItem", method = RequestMethod.GET)
+    public String deleteUserOrderItem(@RequestParam(value = "orderId") int orderId,
+                                      @RequestParam(value = "orderItemId") int orderItemId) {
+        orderService.deleteOrderItem(orderId, orderItemId);
+        return "redirect:/user/ViewOrders";
+    }
+
     @RequestMapping(value = "/user/ViewOrders", method = RequestMethod.GET)
     public String viewUserOrders(ModelMap model) {
         List<Order> orderList = orderService.viewOrdersForUser();
@@ -52,5 +65,13 @@ public class OrderController {
             model.addAttribute("orderList", orderList);
         }
         return "user_orders";
+    }
+
+    @RequestMapping(value = "/admin/ViewOrdersForUser", method = RequestMethod.GET)
+    public String viewOrdersForUser(@RequestParam(value = "username") String username,
+                                    ModelMap model) {
+        List<Order> orders = orderService.viewOrdersForUser(username);
+        model.addAttribute("orderList", orders);
+        return "orders";
     }
 }

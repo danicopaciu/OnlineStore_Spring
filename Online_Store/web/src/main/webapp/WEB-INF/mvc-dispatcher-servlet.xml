@@ -11,15 +11,14 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="com.springapp.mvc"/>
+    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="persistence"/>
     <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
-    <bean class="persistence.dao.ProductDaoImpl" name="productDao"/>
-    <bean id="orderDao" class="persistence.dao.OrderDaoImpl"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -46,10 +45,6 @@
             </props>
         </property>
     </bean>
-
-    <bean id="productService" class="service.ProductServiceImpl"/>
-
-    <bean id="orderService" class="service.OrderServiceImpl"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

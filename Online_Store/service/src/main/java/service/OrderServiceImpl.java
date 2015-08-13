@@ -112,4 +112,13 @@ public class OrderServiceImpl implements OrderService {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public List<Order> viewOrdersForUser(String username) {
+        if (username != null) {
+            return orderDao.viewOrdersForUser(username);
+        }
+        return null;
+    }
 }

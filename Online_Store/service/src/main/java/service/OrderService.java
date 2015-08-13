@@ -6,9 +6,6 @@ import persistence.model.Product;
 
 import java.util.List;
 
-/**
- * Created by daniel.copaciu on 8/7/2015.
- */
 public interface OrderService {
 
     public void addOrder(List<Product> cart);
@@ -22,4 +19,6 @@ public interface OrderService {
     public List<Order> viewOrders();
 
     public List<Order> viewOrdersForUser();
+
+    public List<Order> viewOrdersForUser(String username);
 }

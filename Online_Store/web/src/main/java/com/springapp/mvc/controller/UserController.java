@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import persistence.model.User;
 import service.UserService;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -45,7 +47,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/ChangePassword", method = RequestMethod.GET)
-    public String printChangePassword(){
+    public String printChangePassword() {
         return "change_password";
     }
 
@@ -55,9 +57,29 @@ public class UserController {
                                  ModelMap model) {
         if (newPassword.equals(newMatchingPassword)) {
             userService.changePassword(newPassword);
-        }else{
+        } else {
             model.addAttribute("msg", "The password is not matching!");
         }
         return "redirect:/user/ProductList";
+    }
+
+    @RequestMapping(value = "/admin/viewUsers", method = RequestMethod.GET)
+    public String viewUsers(ModelMap model) {
+        List<User> users = userService.viewUsers();
+        model.addAttribute("userList", users);
+        return "users";
+    }
+
+    @RequestMapping(value = "/admin/removeUser", method = RequestMethod.GET)
+    public String removeUser(@RequestParam(value = "username") String username) {
+        userService.removeAccount(username);
+        return "redirect:/admin/viewUsers";
+    }
+
+    @RequestMapping(value = "/admin/changeAuthority", method = RequestMethod.GET)
+    public String makeAdmin(@RequestParam(value = "username") String username,
+                            @RequestParam(value = "type") String type) {
+        userService.changeAuthority(username, type);
+        return "redirect:/admin/viewUsers";
     }
 }

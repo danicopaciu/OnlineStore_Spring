@@ -34,10 +34,10 @@
 <table>
     <tr>
         <td><a href="<c:url value='/admin/AddProduct' />">Add Product</a></td>
-    </tr>
-    <tr>
         <td><a href="<c:url value='/admin/ViewOrders' />">View Orders</a></td>
+        <td><a href="/admin/viewUsers">View Users</a></td>
     </tr>
+    <
 </table>
 
 <table border="1">

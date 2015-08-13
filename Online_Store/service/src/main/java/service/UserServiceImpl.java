@@ -2,16 +2,23 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import persistence.dao.UserDao;
 import persistence.model.User;
 import persistence.model.UserRole;
+import utils.Constants;
 import utils.UserUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Service
 public class UserServiceImpl implements UserService {
+
+    private static final String MAKE_ADMIN = "makeAdmin";
+    private static final String REMOVE_ADMIN = "removeAdmin";
 
     @Autowired
     private UserDao userDao;
@@ -39,6 +46,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeAccount(String username) {
+        if (username != null) {
+            userDao.removeUser(username);
+        }
+    }
+
+    @Override
     @Transactional
     public void changePassword(String newPassword) {
         org.springframework.security.core.userdetails.User user = UserUtils.getAuthenticatedUser();
@@ -47,6 +61,40 @@ public class UserServiceImpl implements UserService {
             User dbUser = userDao.findByUserName(username);
             String encodedPassword = passwordEncoder.encode(newPassword);
             dbUser.setPassword(encodedPassword);
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<User> viewUsers() {
+        return userDao.viewUsers();
+    }
+
+    @Override
+    @Transactional
+    public void changeAuthority(String username, String type) {
+        if (username != null) {
+            User u = userDao.findByUserName(username);
+            if (type != null) {
+                if (type.equals(MAKE_ADMIN)) {
+                    for (UserRole userRole : u.getUserRoles()) {
+                        if (userRole.getRole().equals(Constants.UserAuthority.ROLE_ADMIN)) {
+                            return;
+                        }
+                    }
+                    UserRole adminRole = new UserRole(u, Constants.UserAuthority.ROLE_ADMIN);
+                    u.getUserRoles().add(adminRole);
+                } else if (type.equals(REMOVE_ADMIN)) {
+                    Set<UserRole> userRoles = u.getUserRoles();
+                    for (UserRole userRole : userRoles) {
+                        String role = userRole.getRole();
+                        if (role.equals(Constants.UserAuthority.ROLE_ADMIN)) {
+                            userRoles.remove(userRole);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -62,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
     private Set<UserRole> getUserRoles(User user) {
         Set<UserRole> userRoles = new HashSet<UserRole>();
-        UserRole userRole = new UserRole(user, "ROLE_USER");
+        UserRole userRole = new UserRole(user, Constants.UserAuthority.ROLE_USER);
         userRoles.add(userRole);
         return userRoles;
     }

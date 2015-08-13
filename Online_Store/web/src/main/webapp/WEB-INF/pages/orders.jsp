@@ -49,6 +49,10 @@
                         <td>${item.date}</td>
                     </tr>
                     <tr>
+                        <td>User</td>
+                        <td>${item.user.username}</td>
+                    </tr>
+                    <tr>
                         <td>Products</td>
                         <td>
                             <table border="1">
@@ -77,7 +81,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="">Update</a></td>
                         <td><a href="/admin/deleteOrder?orderId=${item.id}">Remove</a></td>
                     </tr>
                 </table>
