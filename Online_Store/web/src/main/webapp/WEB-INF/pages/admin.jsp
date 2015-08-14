@@ -37,25 +37,23 @@
         <td><a href="<c:url value='/admin/ViewOrders' />">View Orders</a></td>
         <td><a href="/admin/viewUsers">View Users</a></td>
     </tr>
-    <
 </table>
 
 <table border="1">
     <tr>
-        <th colspan="2">ID</th>
-        <th colspan="2">Name</th>
-        <th colspan="2">Price</th>
-        <th colspan="2">Quantity</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
     </tr>
     <c:forEach var="item" items="${productList}">
         <tr>
-            <td colspan="2">${item.id}</td>
-            <td colspan="2">${item.name}</td>
-            <td colspan="2">${item.price}</td>
-            <td colspan="2">${item.quantity}</td>
-            <td colspan="2"><a href="/admin/UpdateProduct?productId=${item.id}">Update</a></td>
-            <td colspan="2"><a
-                    href="/admin/DeleteProduct?productId=${item.id}&page_name=${pageContext.request.servletPath}">Delete</a>
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>${item.quantity}</td>
+            <td><a href="/admin/UpdateProduct?productId=${item.id}">Update</a></td>
+            <td><a href="/admin/DeleteProduct?productId=${item.id}&page_name=${pageContext.request.servletPath}">Delete</a>
             </td>
         </tr>
     </c:forEach>

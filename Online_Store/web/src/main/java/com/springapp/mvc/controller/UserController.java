@@ -52,13 +52,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/ChangePassword", method = RequestMethod.POST)
-    public String changePassword(@RequestParam("newPassword") String newPassword,
+    public String changePassword(@RequestParam ("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
                                  @RequestParam("newMatchingPassword") String newMatchingPassword,
                                  ModelMap model) {
-        if (newPassword.equals(newMatchingPassword)) {
-            userService.changePassword(newPassword);
+        if (userService.changePassword(currentPassword, newPassword, newMatchingPassword)) {
+            model.addAttribute("msg", "Password successfully changed!");
         } else {
-            model.addAttribute("msg", "The password is not matching!");
+            model.addAttribute("msg", "The password is not matching or current password isn't correct");
         }
         return "redirect:/user/ProductList";
     }

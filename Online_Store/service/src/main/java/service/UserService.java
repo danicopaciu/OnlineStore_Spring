@@ -12,7 +12,7 @@ public interface UserService {
 
     public void removeAccount(String username);
 
-    public void changePassword(String newPassword);
+    public boolean changePassword(String currentPassword, String newPassword, String newMatchingPassword);
 
     public List<User> viewUsers();
 

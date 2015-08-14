@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>User Page</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
 </head>
 <body>
 <h1>Welcome on user page!</h1>
@@ -23,12 +24,21 @@
     function formSubmit() {
         document.getElementById("logoutForm").submit();
     }
+
+    function logout() {
+        $.ajax({
+            type: "GET",
+            url: "/user/DeleteChart",
+            complete: formSubmit()
+        });
+    }
 </script>
+
 <br><br>
 <c:if test="${pageContext.request.userPrincipal.name != null}">
     <p> Welcome: ${pageContext.request.userPrincipal.name} </p>
 
-    <p><a href="javascript:formSubmit()">Logout</a></p>
+    <p><a href="javascript:logout">Logout</a></p>
 </c:if>
 
 <table>

@@ -23,6 +23,14 @@
     function formSubmit() {
         document.getElementById("logoutForm").submit();
     }
+
+    function logout() {
+        $.ajax({
+            type: "GET",
+            url: "/user/DeleteChart",
+            complete: formSubmit()
+        });
+    }
 </script>
 
 <c:if test="${pageContext.request.userPrincipal.name != null}">

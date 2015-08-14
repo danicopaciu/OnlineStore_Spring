@@ -54,14 +54,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changePassword(String newPassword) {
+    public boolean changePassword(String currentPassword, String newPassword, String newMatchingPassword) {
         org.springframework.security.core.userdetails.User user = UserUtils.getAuthenticatedUser();
         if (user != null) {
             String username = user.getUsername();
             User dbUser = userDao.findByUserName(username);
-            String encodedPassword = passwordEncoder.encode(newPassword);
-            dbUser.setPassword(encodedPassword);
+            if(passwordEncoder.matches(currentPassword, dbUser.getPassword())){
+                if(newPassword.equals(newMatchingPassword)){
+                    String encodedPassword = passwordEncoder.encode(newPassword);
+                    dbUser.setPassword(encodedPassword);
+                    return true;
+                }
+            }
         }
+        return false;
     }
 
     @Override
@@ -97,7 +103,6 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
-
 
     private User getNewUser(String username, String password) {
         User user;

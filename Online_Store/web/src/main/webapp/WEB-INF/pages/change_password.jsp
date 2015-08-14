@@ -16,6 +16,10 @@
 <form name="changePasswordForm" action="/user/ChangePassword" method="POST">
     <table align="center">
         <tr>
+            <td>Current Password:</td>
+            <td><input type="password" name="currentPassword"></td>
+        </tr>
+        <tr>
             <td>New Password:</td>
             <td><input type="password" name="newPassword"></td>
         </tr>

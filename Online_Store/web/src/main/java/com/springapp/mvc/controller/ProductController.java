@@ -6,8 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import persistence.model.Product;
+import persistence.model.ProductRepo;
 import service.ProductService;
+import service.XMLService;
 
+import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private XMLService xmlService;
 
     @RequestMapping(value = "/admin/AddProduct", method = RequestMethod.GET)
     public String printAddProduct(ModelMap model) {
@@ -155,5 +160,18 @@ public class ProductController {
         String pageNameExtension = pathList[pathList.length - 1];
         String[] pageNameExtensionArray = pageNameExtension.split("\\.");
         return pageNameExtensionArray[0];
+    }
+
+    @RequestMapping(value = "/productList", method = RequestMethod.GET, produces = "application/xml")
+    public @ResponseBody String getProdcutList(){
+        List<Product> products = productService.viewAllProducts();
+        try {
+            ProductRepo productRepo = new ProductRepo(products);
+            String result = xmlService.objectToXml(productRepo);
+            return result;
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

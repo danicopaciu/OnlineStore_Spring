@@ -11,6 +11,7 @@
     <http use-expressions="true">
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/register" access="permitAll"/>
+        <intercept-url pattern="/productList" access="permitAll"/>
         <intercept-url pattern="/login**" access="permitAll" requires-channel="http"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" requires-channel="http"/>
         <intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" requires-channel="http"/>

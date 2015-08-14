@@ -1,9 +1,14 @@
 package persistence.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "products")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "product")
 public class Product {
 
     @Id
@@ -63,5 +68,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Product: " + id + "\n" + "Name: " + name + "\n" + "Price: " + price + "\n" + "Quantity: " + quantity + "\n";
+    }
+
+    public boolean isStock(){
+        return quantity != 0;
     }
 }

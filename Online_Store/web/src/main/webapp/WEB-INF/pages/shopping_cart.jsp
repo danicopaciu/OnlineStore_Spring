@@ -27,9 +27,7 @@
     function formSubmit() {
         document.getElementById("logoutForm").submit();
     }
-</script>
 
-<script type="text/javascript">
     function logout() {
         $.ajax({
             type: "GET",
@@ -47,7 +45,7 @@
 </c:if>
 
 <p><a href=" <c:url value="/user/ProductList" />">Products List</a></p>
-
+<c:if test="${cart.size() > 0}">
 <table border="1">
     <tr>
         <th>Name</th>
@@ -78,5 +76,6 @@
     <input type="submit" name="submitOrder" value="Submit Order"/>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
+</c:if>
 </body>
 </html>
